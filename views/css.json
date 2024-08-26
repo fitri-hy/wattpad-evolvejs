@@ -1,0 +1,5 @@
+{
+  "_note_": "cssFramework = change bootstrap or tailwind | cssSource = change cdn or local",
+  "cssFramework": "tailwind",
+  "cssSource": "local"
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('partials/head') %>
+</head>
+<body class="font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<%- include('components/header') %>
+	
+	<main class="lg:container m-auto pb-20 lg:pb-0">
+		<section class="px-2 py-12 lg:py-32 md:px-0">
+		  <div class="items-center px-8 mx-auto xl:px-5">
+			<div class="flex flex-wrap items-center sm:-mx-3">
+			  <div class="w-full lg:w-1/2 md:px-3">
+				<div class="w-full pb-6 space-y-6 lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
+				  <h1 class="text-center lg:text-left text-4xl font-extrabold tracking-tight text-gray-900 lg:text-6xl">
+					<span class="block xl:inline">Selamat Datang di</span>
+					<span class="block text-indigo-500 xl:inline">R-Stories.</span>
+				  </h1>
+				  <p class="text-center lg:text-left mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">
+					Rumah bagi 97 juta orang yang menghabiskan lebih dari 26 miliar menit sebulan untuk terlibat dalam cerita orisinal, R-Stories telah mendemokratisasi cara bercerita untuk generasi baru penulis Gen Z yang beragam dan penggemarnya.
+				  </p>
+				  <div class="relative flex justify-center lg:justify-start sm:flex-row sm:space-x-4">
+					<a href="#_" class="justify-center flex items-center w-full px-6 py-3 mb-3 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+					  Mula Membaca
+					  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+					</a>
+					<a href="#_" class="justify-center flex items-center px-6 py-3 mb-3 text-gray-600 font-semibold rounded-md hover:bg-gray-200 hover:text-gray-600">
+					  Telusuri
+					</a>
+				  </div>
+				</div>
+			  </div>
+			  <div class="w-full md:w-1/2">
+				<div class="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
+					<img class="w-full object-cover" src="https://img.freepik.com/free-psd/3d-illustration-nocturnal-person-staying-up_23-2150944847.jpg">
+				  </div>
+			  </div>
+			</div>
+		  </div>
+		</section>
+
+		<section class="mt-9">
+			<div class="max-w-lg m-auto">
+				<h2 class="text-center pb-2 text-4xl font-bold bg-gradient-to-r from-indigo-500 to-cyan-500 text-transparent bg-clip-text">
+				  Story Terbaru
+				</h2>
+				<p class="text-center">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				</p>
+			</div>
+			<div class="px-4 py-9 grid grid-cols-2 lg:grid-cols-4 gap-6">
+				
+				<% 
+				  let sortedData = data.sort((a, b) => b.id - a.id);
+				  let limitedData = sortedData.slice(0, 8);
+				%>
+
+				<% limitedData.forEach(story => { %>
+				<div class="bg-white rounded-lg shadow-lg">
+					<img class="w-full rounded-t-lg h-[200px] lg:h-[300px] object-cover" src="/assets/img/story/<%= story.img %>">
+					<div class="px-4 py-4">
+						<div class="flex justify-between items-center">
+							<span class="text-xs">
+								<%= story.category_name %>
+							</span>
+							<span class="text-xs">
+								<i class="fa-regular fa-clock"></i> <%= new Date(story.date).toLocaleDateString('id-ID') %>
+							</span>
+						</div>
+						<span class="text-slate-700 font-semibold lg:text-xl overflow-hidden line-clamp-1 mt-2">
+							<%= story.title %>
+						</span>
+						<div class="overflow-hidden text-sm lg:text-normal line-clamp-2">
+							<%- story.content %>
+						</div>
+						<div class="flex justify-end mt-4">
+							<a href="/story/<%= story.slug %>" class="w-full text-center px-4 py-2 rounded bg-gradient-to-r hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white font-semibold">
+								Baca
+							</a>
+						</div>
+					</div>
+				</div>
+				<% }) %>
+			</div>
+		</section>
+		
+		<section class="mt-9">
+			<div class="max-w-lg m-auto">
+				<h2 class="text-center pb-2 text-4xl font-bold bg-gradient-to-r from-indigo-500 to-cyan-500 text-transparent bg-clip-text">
+				  Story Populer
+				</h2>
+				<p class="text-center">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				</p>
+			</div>
+			<div class="px-4 py-9 grid grid-cols-2 lg:grid-cols-4 gap-6">
+				
+				<% 
+				  function shuffleArray(array) {
+					for (let i = array.length - 1; i > 0; i--) {
+					  const j = Math.floor(Math.random() * (i + 1));
+					  [array[i], array[j]] = [array[j], array[i]]; // Tukar elemen
+					}
+					return array;
+				  }
+				  let shuffledData = shuffleArray([...data]).slice(0, 8);
+				%>
+				<% shuffledData.forEach(story => { %>
+				<div class="bg-white rounded-lg shadow-lg">
+					<img class="w-full rounded-t-lg h-[200px] lg:h-[300px] object-cover" src="/assets/img/story/<%= story.img %>">
+					<div class="px-4 py-4">
+						<div class="flex justify-between items-center">
+							<span class="text-xs">
+								<%= story.category_name %>
+							</span>
+							<span class="text-xs">
+								<i class="fa-regular fa-clock"></i> <%= new Date(story.date).toLocaleDateString('id-ID') %>
+							</span>
+						</div>
+						<span class="text-slate-700 font-semibold lg:text-xl overflow-hidden line-clamp-1 mt-2">
+							<%= story.title %>
+						</span>
+						<div class="overflow-hidden text-sm lg:text-normal line-clamp-2">
+							<%- story.content %>
+						</div>
+						<div class="flex justify-end mt-4">
+							<a href="/story/<%= story.slug %>" class="w-full text-center px-4 py-2 rounded bg-gradient-to-r hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white font-semibold">
+								Baca
+							</a>
+						</div>
+					</div>
+				</div>
+				<% }) %>
+			</div>
+		</section>
+		
+	</main>
+	
+	<div class="max-h-screen max-w-screen fixed left-[calc(50%-4rem)] bottom-10 -z-20 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+		<div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+		</div>
+	</div>
+	<%- include('partials/script') %>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('partials/head') %>
+</head>
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<%- include('components/sidebar') %>
+	<main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+		<%- include('components/header') %>
+		<div class="px-6 py-6 mx-auto">
+			<div class="bg-white shadow-soft-xl rounded-2xl bg-clip-border p-6">
+				
+				<div class="flex items-center justify-between mb-6">
+					<h4>Add Story</h4>
+					<div>
+						<a href="/dashboard/story" class="flex items-center gap-2 inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102">
+							<i class="fa fa-arrow-left"></i>
+							<span>Back</span>
+						</a>
+					</div>
+				</div>
+				
+				<form action="/dashboard/story/create" method="POST" enctype="multipart/form-data" class="bg-white p-6 border border-gray-300 rounded-lg">
+				  <div class="flex gap-4 items-center">
+					  <div class="w-full mb-4">
+						<label class="block text-gray-700">Title</label>
+						<input type="text" name="title" class="focus:outline-none mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" required>
+					  </div>
+					  <div class="mb-4">
+						<label class="block text-gray-700">Category</label>
+						<select name="id_category" class="min-w-[200px] bg-white focus:outline-none mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm required">
+						  <% data.forEach(category => { %>
+							<option value="<%= category.id %>">
+								<%= category.category %>
+							</option>
+						  <% }) %>
+						</select>
+					  </div>
+				  </div>
+				  <div class="mb-4">
+					<label class="block text-gray-700">Content</label>
+					<textarea name="content" rows="15" class="focus:outline-none mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" required></textarea>
+				  </div>
+				  <div class="mb-4">
+					<label class="block text-gray-700">Image</label>
+					<input type="file" name="image" class="file:bg-slate-200 file:border-none file:rounded file:text-gray-700 file:hover:bg-slate-300 file:px-2 file:py-1  focus:outline-none mt-1 block px-3 py-2 border border-gray-300 rounded-md shadow-sm" required>
+				  </div>
+				  <button type="submit" class="flex items-center gap-2 px-6 py-3 mt-9 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102">
+					<i class="fa fa-save"></i>
+					<span>Save</span>
+				  </button>
+				</form>
+				  
+			</div>
+		</div>
+	</main>
+	<div class="max-h-screen max-w-screen fixed left-[calc(50%-4rem)] bottom-10 -z-20 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+		<div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+		</div>
+	</div>
+</html>

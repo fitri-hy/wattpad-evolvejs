@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('partials/head') %>
+</head>
+<body class="font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<%- include('components/header') %>
+	
+	<main class="lg:flex gap-6 lg:container m-auto pb-24 lg:pb-4 px-4 pt-4">
+		<section class="bg-white shadow-soft-xl rounded-lg lg:mb-0 lg:w-[70%]">
+			<img class="w-full rounded-t-lg h-[350px] object-cover" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
+			<div class="p-4 lg:p-12">
+				<div class="flex justify-between itemx-center">
+					<span class="justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+						<%= story.category_name %>
+					</span>
+					<span class="gap-2 justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+						<i class="fa-regular fa-clock"></i> <%= new Date(story.date).toLocaleDateString('id-ID') %>
+					</span>
+				</div>
+				<p class="text-xl lg:text-3xl font-bold text-gray-700 mt-6">
+					<%= story.title %>
+				</p>
+				<div class="text-gray-600 mt-4">
+					<%- story.content %>
+				</div>
+			</div>
+		</section>
+		<section class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg lg:mb-0 p-4 lg:w-[30%] mt-9 lg:mt-0">
+			<div>
+				<h4>Kategori</h4>
+				<div class="mt-4">
+					<div class="flex flex-wrap gap-2">
+						<% categories.forEach(category => { %>
+							<a href="/category/<%= category.id %>" class="gap-2 justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+								<%= category.name %>
+							</a>
+						<% }) %>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h4>Story Terbaru</h4>
+				<div class="mt-4">
+					<% 
+					  let sortedData = latestStories.sort((a, b) => b.id - a.id);
+					  let limitedData = sortedData.slice(0, 6);
+					%>
+					<% limitedData.forEach(story => { %>
+					<a href="/story/<%= story.slug %>">
+						<div class="w-full flex gap-3 mb-4">
+							<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
+							<div class="">
+								<span class="overflow-hidden line-clamp-1 font-bold">
+									<%= story.title %>
+								</span>
+								<div class="overflow-hidden line-clamp-2">
+									<%- story.content %>
+								</div>
+							</div>
+						</div>
+					</a>
+					<% }) %>
+				</div>
+			</div>
+			<div>
+				<h4>Story Populer</h4>
+				<div class="mt-4">
+					<% 
+					  function shuffleArray(array) {
+						for (let i = array.length - 1; i > 0; i--) {
+						  const j = Math.floor(Math.random() * (i + 1));
+						  [array[i], array[j]] = [array[j], array[i]];
+						}
+						return array;
+					  }
+					  let shuffledData = shuffleArray([...latestStories]).slice(0, 8);
+					%>
+					<% shuffledData.forEach(story => { %>
+					<a href="/story/<%= story.slug %>">
+						<div class="w-full flex gap-3 mb-4">
+							<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
+							<div class="">
+								<span class="overflow-hidden line-clamp-1 font-bold">
+									<%= story.title %>
+								</span>
+								<div class="overflow-hidden line-clamp-2">
+									<%- story.content %>
+								</div>
+							</div>
+						</div>
+					</a>
+					<% }) %>
+				</div>
+			</div>
+		</section>
+	</main>
+	
+	<div class="max-h-screen max-w-screen fixed left-[calc(50%-4rem)] bottom-10 -z-20 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+		<div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+		</div>
+	</div>
+	<%- include('partials/script') %>
+</body>
+</html>
