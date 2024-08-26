@@ -6,7 +6,7 @@
 <body class="font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
 	<%- include('components/header') %>
 	
-	<main class="lg:flex gap-6 lg:container m-auto pb-24 lg:pb-4 px-4 pt-4">
+	<main class="lg:flex gap-6 lg:container m-auto lg:pb-4 px-4 pt-4">
 		<section class="bg-white shadow-soft-xl rounded-lg lg:mb-0 lg:w-[70%]">
 			<img class="w-full rounded-t-lg h-[350px] object-cover" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
 			<div class="p-4 lg:p-12">
@@ -50,7 +50,7 @@
 					<a href="/story/<%= story.slug %>">
 						<div class="w-full flex gap-3 mb-4">
 							<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
-							<div class="">
+							<div>
 								<span class="overflow-hidden line-clamp-1 font-bold">
 									<%= story.title %>
 								</span>
@@ -95,6 +95,7 @@
 			</div>
 		</section>
 	</main>
+	<%- include('components/footer') %>
 	
 	<div class="max-h-screen max-w-screen fixed left-[calc(50%-4rem)] bottom-10 -z-20 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
 		<div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
