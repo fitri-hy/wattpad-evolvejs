@@ -1,5 +1,4 @@
 import db from '../core/Database.js';
-import upload from '../core/multer.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -19,9 +18,15 @@ class DashboardStoryController {
 			ON story.id_category = category.id
 	  `);
 
+    const stories = rows.map(story => ({
+      ...story,
+      slug: DashboardStoryController.generateSlug(story.title)
+    }));
+
       res.render('dashboard/story', { 
-		data: rows
-	  });
+		    data: stories
+	    });
+
     } catch (error) {
       console.error(error);
       res.status(500).send('Terjadi kesalahan saat mengambil data.');
@@ -120,6 +125,13 @@ class DashboardStoryController {
       console.error(error);
       res.status(500).send('Terjadi kesalahan saat menghapus data.');
     }
+  }
+
+  static generateSlug(title) {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
   }
   
 }

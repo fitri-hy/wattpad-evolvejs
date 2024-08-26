@@ -21,24 +21,12 @@
 				<p class="text-xl lg:text-3xl font-bold text-gray-700 mt-6">
 					<%= story.title %>
 				</p>
-				<div class="text-gray-600 mt-4">
+				<div class="text-gray-600 mt-4 lg:text-xl">
 					<%- story.content %>
 				</div>
 			</div>
 		</section>
 		<section class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg lg:mb-0 p-4 lg:w-[30%] mt-9 lg:mt-0">
-			<div>
-				<h4>Kategori</h4>
-				<div class="mt-4">
-					<div class="flex flex-wrap gap-2">
-						<% categories.forEach(category => { %>
-							<a href="/category/<%= category.id %>" class="gap-2 justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
-								<%= category.name %>
-							</a>
-						<% }) %>
-					</div>
-				</div>
-			</div>
 			<div>
 				<h4>Story Terbaru</h4>
 				<div class="mt-4">

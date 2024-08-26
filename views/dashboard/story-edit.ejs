@@ -11,11 +11,11 @@
 			<div class="bg-white shadow-soft-xl rounded-2xl bg-clip-border p-6">
 				
 				<div class="flex items-center justify-between mb-6">
-					<h4>Add Story</h4>
+					<h4>Ubah Story</h4>
 					<div>
 						<a href="/dashboard/story" class="flex items-center gap-2 inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102">
 							<i class="fa fa-arrow-left"></i>
-							<span>Back</span>
+							<span>Kembali</span>
 						</a>
 					</div>
 				</div>
@@ -41,7 +41,19 @@
 				  
 				  <div class="mb-4">
 					<label class="block text-gray-700">Konten</label>
-					<textarea name="content" rows="15" class="focus:outline-none mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" required><%= story.content %></textarea>
+					<div class="mb-2">
+					  <button type="button" onclick="formatText('bold')" class="px-2 py-1 bg-white border border-gray-300 rounded">B</button>
+					  <button type="button" onclick="formatText('italic')" class="px-2 py-1 bg-white border border-gray-300 rounded">I</button>
+					  <button type="button" onclick="formatText('underline')" class="px-2 py-1 bg-white border border-gray-300 rounded">U</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h1')" class="px-2 py-1 bg-white border border-gray-300 rounded">h1</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h2')" class="px-2 py-1 bg-white border border-gray-300 rounded">h2</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h3')" class="px-2 py-1 bg-white border border-gray-300 rounded">h3</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h4')" class="px-2 py-1 bg-white border border-gray-300 rounded">h4</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h5')" class="px-2 py-1 bg-white border border-gray-300 rounded">h5</button>
+					  <button type="button" onclick="formatText('formatBlock', 'h6')" class="px-2 py-1 bg-white border border-gray-300 rounded">h6</button>
+					</div>
+					<div contenteditable="true" id="editor" class="focus:outline-none mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" style="min-height: 500px;" oninput="syncContent()" onkeydown="return handleKeyDown(event)" required><%- story.content %></div>
+					<textarea name="content" id="content" style="display:none;"></textarea>
 				  </div>
 				  
 				  <div class="mb-4">
@@ -66,4 +78,19 @@
 		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
 		</div>
 	</div>
+	<script>
+		function formatText(command, value = null) {
+		document.execCommand(command, false, value);
+		}
+		function syncContent() {
+		document.getElementById('content').value = document.getElementById('editor').innerHTML;
+		}
+		function handleKeyDown(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			formatText('insertParagraph');
+		}
+		}
+
+	</script>
 </html>

@@ -9,20 +9,29 @@
 				<li>
 					<a class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105" href="/">
 						<i class="mr-1 fa-solid fa-house opacity-80"></i>
-						Home
+						Beranda
 					</a>
 				</li>
 				<li>
-					<a class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105" href="#">
+					<a class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105" href="/story-list">
 						<i class="mr-1 fa-solid fa-rss opacity-80"></i>
 						Cerita
 					</a>
 				</li>
 				<li>
-					<a class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105" href="#">
-						<i class="mr-1 fa-solid fa-list opacity-80"></i>
-						Kategory
-					</a>
+					<div class="relative" x-data="{ open: false }">
+						<button @click="open = !open" class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105 transition-transform duration-200 ease-in-out">
+							<i class="mr-1 fa-solid fa-list opacity-80"></i>
+							Kategory
+						</button>
+						<div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+							<% headerCategories.forEach(category => { %>
+							<a href="/category/<%= category.slug %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100">
+								<%= category.category %>
+							</a>
+							<% }) %>
+						</div>
+					</div>
 				</li>
 				<li>
 					<a class="flex items-center px-4 py-2 font-normal text-sm text-slate-700 hover:text-indigo-400 hover:scale-105" href="#">
@@ -45,16 +54,25 @@
 	<div class="w-full flex justify-between bg-white py-4 px-6 border-t border-salte-700">
 		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="/">
 			<i class="fa-solid fa-house text-xl opacity-80"></i>
-			<span>Home</span>
+			<span>Beranda</span>
 		</a>
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
+		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="/story-list">
 			<i class="fa-solid fa-rss text-xl opacity-80"></i>
 			Ceita
 		</a>
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
-			<i class="fa-solid fa-list text-xl opacity-80"></i>
-			Kategory
-		</a>
+		<div class="relative" x-data="{ open: false }">
+			<button @click="open = !open" class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105 transition-transform duration-200 ease-in-out">
+				<i class="fa-solid fa-list opacity-80 text-xl"></i>
+				Kategory
+			</button>
+			<div x-show="open" @click.away="open = false" class="absolute bottom-0 mb-16 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+				<% headerCategories.forEach(category => { %>
+				<a href="/category/<%= category.slug %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100">
+					<%= category.category %>
+				</a>
+				<% }) %>
+			</div>
+		</div>
 		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
 			<i class="fa-solid fa-circle-info text-xl opacity-80"></i>
 			Tentang

@@ -13,7 +13,7 @@
 		<div class="px-6 py-6 mx-auto">
 			<div class="bg-white shadow-soft-xl rounded-2xl bg-clip-border p-6">
 				<div class="flex items-center justify-between mb-6">
-					<h4>Story</h4>
+					<h4>Daftar Story</h4>
 					<div>
 						<a href="/dashboard/story/create" class="flex gap-2 inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102">
 							<i class="fa fa-plus"></i>
@@ -25,10 +25,10 @@
 				  <table id="example" class="display min-w-full py-2">
 					<thead>
 					  <tr class="bg-pink-600 text-left text-white">
-						<th class="py-2 px-4 border-b">Title</th>
-						<th class="py-2 px-4 border-b">Category</th>
-						<th class="py-2 px-4 border-b">Date</th>
-						<th class="py-2 px-4 border-b">Action</th>
+						<th class="py-2 px-4 border-b">Judul</th>
+						<th class="py-2 px-4 border-b">Kategori</th>
+						<th class="py-2 px-4 border-b">Tanggal</th>
+						<th class="py-2 px-4 border-b">Aksi</th>
 					  </tr>
 					</thead>
 					<tbody>
@@ -53,7 +53,7 @@
 							</td>
 							<td class="py-2 px-4 border-b">
 								<div class="flex items-center justify-center">
-									<a href="#" class="bg-blue-500 px-3 py-1 text-white rounded-l-md hover:bg-blue-600 hover:scale-105">
+									<a href="/story/<%= story.slug %>" target="_blank" class="bg-blue-500 px-3 py-1 text-white rounded-l-md hover:bg-blue-600 hover:scale-105">
 										<i class="fa fa-eye"></i>
 									</a>
 									<a href="/dashboard/story/edit/<%= story.id %>" class="bg-yellow-500 px-3 py-1 text-white hover:bg-yellow-600 hover:scale-105">
