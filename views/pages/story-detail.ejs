@@ -11,10 +11,10 @@
 			<img class="w-full rounded-t-lg h-[350px] object-cover" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
 			<div class="p-4 lg:p-12">
 				<div class="flex justify-between itemx-center">
-					<span class="justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+					<span class="justify-center font-semibold flex items-center px-2 py-1 text-xs lg:text-xl bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
 						<%= story.category_name %>
 					</span>
-					<span class="gap-2 justify-center font-semibold flex items-center px-2 py-1 text-lg bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+					<span class="gap-2 justify-center font-semibold flex items-center px-2 py-1 text-xs lg:text-xl bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
 						<i class="fa-regular fa-clock"></i> <%= new Date(story.date).toLocaleDateString('id-ID') %>
 					</span>
 				</div>
@@ -28,7 +28,7 @@
 		</section>
 		<section class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg lg:mb-0 p-4 lg:w-[30%] mt-9 lg:mt-0">
 			<div>
-				<h4>Story Terbaru</h4>
+				<h4>Cerita Terbaru</h4>
 				<div class="mt-4">
 					<% 
 					  let sortedData = latestStories.sort((a, b) => b.id - a.id);
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div>
-				<h4>Story Populer</h4>
+				<h4>Cerita Populer</h4>
 				<div class="mt-4">
 					<% 
 					  function shuffleArray(array) {

@@ -2,4 +2,15 @@
   <script src="/tailwind-3.4.10/js/plugins/perfect-scrollbar.min.js" async></script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="/tailwind-3.4.10/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.getElementById('toggleAside');
+      const aside = document.getElementById('sidebarAside');
+
+      toggleButton.addEventListener('click', () => {
+          aside.classList.toggle('-translate-x-full');
+          aside.classList.toggle('translate-x-0');
+      });
+  });
+  </script>
 </body>

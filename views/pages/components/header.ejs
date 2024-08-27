@@ -52,32 +52,32 @@
 
 <div class="w-full flex lg:hidden fixed bottom-0 z-sticky">
 	<div class="w-full flex justify-between bg-white py-4 px-6 border-t border-salte-700">
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="/">
+		<a class="flex flex-col items-center gap-1 justify-center font-normal text-xs text-slate-600 hover:text-indigo-400 hover:scale-105" href="/">
 			<i class="fa-solid fa-house text-xl opacity-80"></i>
 			<span>Beranda</span>
 		</a>
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="/story-list">
+		<a class="flex flex-col items-center gap-1 justify-center font-normal text-xs text-slate-600 hover:text-indigo-400 hover:scale-105" href="/story-list">
 			<i class="fa-solid fa-rss text-xl opacity-80"></i>
-			Ceita
+			Cerita
 		</a>
 		<div class="relative" x-data="{ open: false }">
-			<button @click="open = !open" class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105 transition-transform duration-200 ease-in-out">
+			<button @click="open = !open" class="flex flex-col items-center gap-1 justify-center font-normal text-xs text-slate-600 hover:text-indigo-400 hover:scale-105 transition-transform duration-200 ease-in-out">
 				<i class="fa-solid fa-list opacity-80 text-xl"></i>
 				Kategory
 			</button>
 			<div x-show="open" @click.away="open = false" class="absolute bottom-0 mb-16 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
 				<% headerCategories.forEach(category => { %>
-				<a href="/category/<%= category.slug %>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100">
+				<a href="/category/<%= category.slug %>" class="block px-4 py-2 text-xs text-gray-700 hover:bg-indigo-100">
 					<%= category.category %>
 				</a>
 				<% }) %>
 			</div>
 		</div>
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
+		<a class="flex flex-col items-center gap-1 justify-center font-normal text-xs text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
 			<i class="fa-solid fa-circle-info text-xl opacity-80"></i>
 			Tentang
 		</a>
-		<a class="flex flex-col items-center justify-center font-normal text-sm text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
+		<a class="flex flex-col items-center gap-1 justify-center font-normal text-xs text-slate-600 hover:text-indigo-400 hover:scale-105" href="#">
 			<i class="fa-solid fa-gear text-xl opacity-80"></i>
 			Pengaturan
 		</a>

@@ -10,8 +10,10 @@ import DashboardCategoryController from '../controllers/DashboardCategoryControl
 const router = express.Router();
 
 router.get('/', HomeController.index);
+
 router.get('/story-list', HomeController.storyList);
 router.get('/story/:slug', HomeController.storyDetail);
+router.get('/category/:slug', HomeController.categoryStory);
 
 router.get('/login', LoginController.index);
 router.get('/register', RegisterController.index);

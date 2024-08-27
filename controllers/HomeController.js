@@ -153,6 +153,104 @@ class HomeController {
     }
   }
 
+  static async categoryStory(req, res) {
+    const { slug } = req.params;
+    const { page = 1, search = '' } = req.query;
+    const limit = 8; // Jumlah cerita per halaman
+    const offset = (page - 1) * limit;
+
+    try {
+        const decodedSlug = decodeURIComponent(slug).replace(/-/g, ' ');
+
+        const [categoryRows] = await db.query(`
+            SELECT id, category 
+            FROM category 
+            WHERE category = ?
+        `, [decodedSlug]);
+
+        if (categoryRows.length === 0) {
+            return res.status(404).send('Category not found');
+        }
+
+        const categoryId = categoryRows[0].id;
+
+        const [storyRows] = await db.query(`
+            SELECT 
+                story.id, 
+                story.title, 
+                story.content, 
+                story.img, 
+                story.date, 
+                category.id AS category_id, 
+                category.category AS category_name 
+            FROM story 
+            JOIN category 
+                ON story.id_category = category.id
+            WHERE story.id_category = ? 
+            AND story.title LIKE ? 
+            LIMIT ? OFFSET ?
+        `, [categoryId, `%${search}%`, limit, offset]);
+
+        const [totalStoriesCount] = await db.query(`
+            SELECT COUNT(*) AS total 
+            FROM story 
+            WHERE id_category = ? 
+            AND title LIKE ?
+        `, [categoryId, `%${search}%`]);
+
+        if (storyRows.length === 0) {
+            return res.status(404).send('No stories found for this category');
+        }
+
+        const totalPages = Math.ceil(totalStoriesCount[0].total / limit);
+
+        const storiesWithSlug = storyRows.map(story => ({
+            ...story,
+            slug: HomeController.generateSlug(story.title)
+        }));
+
+        const [latestStories] = await db.query(`
+            SELECT 
+                story.id, 
+                story.title, 
+                story.content, 
+                story.img, 
+                story.date 
+            FROM story 
+            ORDER BY story.date DESC 
+            LIMIT 5
+        `);
+
+        const latestStoriesWithSlug = latestStories.map(story => ({
+            ...story,
+            slug: HomeController.generateSlug(story.title)
+        }));
+
+        const [headerCategories] = await db.query(`
+            SELECT * FROM category
+        `);
+
+        const categoriesWithSlug = headerCategories.map(category => ({
+            ...category,
+            slug: HomeController.generateSlug(category.category)
+        }));
+
+        res.render('pages/category-list', {
+            stories: storiesWithSlug,
+            latestStories: latestStoriesWithSlug,
+            headerCategories: categoriesWithSlug,
+            categoryName: categoryRows[0].category,
+            currentPage: parseInt(page),
+            totalPages,
+            searchQuery: search
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
   static generateSlug(title) {
     return title
       .toLowerCase()

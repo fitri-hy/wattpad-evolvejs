@@ -55,7 +55,7 @@
 				<% limitedData.forEach(story => { %>
 				<div class="bg-white rounded-lg shadow-lg">
 					<img class="w-full rounded-t-lg h-[200px] lg:h-[300px] object-cover" src="/assets/img/story/<%= story.img %>">
-					<div class="px-4 py-4">
+					<div class="px-2 lg:px-4 py-4">
 						<div class="flex justify-between items-center">
 							<span class="text-xs">
 								<%= story.category_name %>
@@ -70,7 +70,7 @@
 						<div class="overflow-hidden text-sm lg:text-normal line-clamp-2">
 							<%- story.content %>
 						</div>
-						<div class="flex justify-end mt-4">
+						<div class="flex justify-end mt-4 px-4">
 							<a href="/story/<%= story.slug %>" class="w-full text-center px-4 py-2 rounded bg-gradient-to-r hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white font-semibold">
 								Baca
 							</a>
@@ -105,7 +105,7 @@
 				<% shuffledData.forEach(story => { %>
 				<div class="bg-white rounded-lg shadow-lg">
 					<img class="w-full rounded-t-lg h-[200px] lg:h-[300px] object-cover" src="/assets/img/story/<%= story.img %>">
-					<div class="px-4 py-4">
+					<div class="px-2 lg:px-4 py-4">
 						<div class="flex justify-between items-center">
 							<span class="text-xs">
 								<%= story.category_name %>
@@ -120,7 +120,7 @@
 						<div class="overflow-hidden text-sm lg:text-normal line-clamp-2">
 							<%- story.content %>
 						</div>
-						<div class="flex justify-end mt-4">
+						<div class="flex justify-end mt-4 px-4">
 							<a href="/story/<%= story.slug %>" class="w-full text-center px-4 py-2 rounded bg-gradient-to-r hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white font-semibold">
 								Baca
 							</a>
