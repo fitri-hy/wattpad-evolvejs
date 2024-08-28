@@ -42,64 +42,89 @@ class HomeController {
   }
 
   static async storyDetail(req, res) {
-	  const { slug } = req.params;
-	  try {
-		const decodedSlug = decodeURIComponent(slug).replace(/-/g, ' ');
+    const { slug } = req.params;
+    try {
+      const decodedSlug = decodeURIComponent(slug).replace(/-/g, ' ');
 
-		const [storyRows] = await db.query(`
-		  SELECT 
-			story.id, 
-			story.title, 
-			story.content, 
-			story.img, 
-			story.date, 
-			category.id AS category_id, 
-			category.category AS category_name 
-		  FROM story 
-		  JOIN category 
-			ON story.id_category = category.id
-		  WHERE story.title = ?
-		`, [decodedSlug]);
+      const [storyRows] = await db.query(`
+        SELECT 
+          story.id, 
+          story.title, 
+          story.content, 
+          story.img, 
+          story.date, 
+          category.id AS category_id, 
+          category.category AS category_name,
+          comment.comment_id, 
+          comment.comment_name, 
+          comment.comment_email, 
+          comment.comment_text 
+        FROM story 
+        JOIN category 
+          ON story.id_category = category.id
+        LEFT JOIN comment 
+          ON story.id = comment.id_story
+        WHERE story.title = ?
+      `, [decodedSlug]);
 
-		if (storyRows.length === 0) {
-		  return res.status(404).send('Story not found');
-		}
+      if (storyRows.length === 0) {
+        return res.status(404).send('Story not found');
+      }
 
-		const [latestStories] = await db.query(`
-		  SELECT 
-			story.id, 
-			story.title, 
-			story.content, 
-			story.img, 
-			story.date 
-		  FROM story 
-		  ORDER BY story.date DESC 
-		  LIMIT 5
-		`);
+      const storyData = {
+        id: storyRows[0].id,
+        title: storyRows[0].title,
+        content: storyRows[0].content,
+        img: storyRows[0].img,
+        date: storyRows[0].date,
+        category_id: storyRows[0].category_id,
+        category_name: storyRows[0].category_name,
+        comments: storyRows
+          .filter(row => row.comment_id !== null)
+          .map(row => ({
+            comment_id: row.comment_id,
+            comment_name: row.comment_name,
+            comment_email: row.comment_email,
+            comment_text: row.comment_text
+          }))
+      };
 
-		const storiesWithSlug = latestStories.map(story => ({
-		  ...story,
-		  slug: HomeController.generateSlug(story.title)
-		}));
+      const [latestStories] = await db.query(`
+        SELECT 
+          story.id, 
+          story.title, 
+          story.content, 
+          story.img, 
+          story.date 
+        FROM story 
+        ORDER BY story.date DESC 
+        LIMIT 5
+      `);
 
-		const [headerCategories] = await db.query(`
-            SELECT * FROM category
-        `);
+      const storiesWithSlug = latestStories.map(story => ({
+        ...story,
+        slug: HomeController.generateSlug(story.title)
+      }));
 
-        const categoriesWithSlug = headerCategories.map(category => ({
-            ...category,
-            slug: HomeController.generateSlug(category.category)
-        }));
+      const [headerCategories] = await db.query(`
+        SELECT * FROM category
+      `);
 
-		res.render('pages/story-detail', { 
-		  story: storyRows[0],
-		  latestStories: storiesWithSlug,
-		  headerCategories: categoriesWithSlug
-		});
-	  } catch (error) {
-		console.error(error);
-		res.status(500).send('Terjadi kesalahan saat mengambil data.');
-	  }
+      const categoriesWithSlug = headerCategories.map(category => ({
+        ...category,
+        slug: HomeController.generateSlug(category.category)
+      }));
+
+      res.render('pages/story-detail', { 
+        story: storyData,
+        latestStories: storiesWithSlug,
+        headerCategories: categoriesWithSlug,
+		generateSlug: HomeController.generateSlug
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Terjadi kesalahan saat mengambil data.');
+    }
   }
 
   static async storyList(req, res) {
@@ -156,7 +181,7 @@ class HomeController {
   static async categoryStory(req, res) {
     const { slug } = req.params;
     const { page = 1, search = '' } = req.query;
-    const limit = 8; // Jumlah cerita per halaman
+    const limit = 8;
     const offset = (page - 1) * limit;
 
     try {
@@ -249,7 +274,36 @@ class HomeController {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-}
+  }
+  
+  static async storyCommentAdd(req, res) {
+    const { slug } = req.params;
+    const { comment_name, comment_email, comment_text } = req.body;
+
+    try {
+      const decodedSlug = decodeURIComponent(slug).replace(/-/g, ' ');
+
+      const [storyRows] = await db.query(`
+        SELECT id FROM story WHERE title = ?
+      `, [decodedSlug]);
+
+      if (storyRows.length === 0) {
+        return res.status(404).send('Story not found');
+      }
+
+      const storyId = storyRows[0].id;
+
+      await db.query(`
+        INSERT INTO comment (id_story, comment_name, comment_email, comment_text)
+        VALUES (?, ?, ?, ?)
+      `, [storyId, comment_name, comment_email, comment_text]);
+
+      res.redirect(`/story/${HomeController.generateSlug(decodedSlug)}`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Terjadi kesalahan saat mengirim komentar.');
+    }
+  }
 
   static generateSlug(title) {
     return title

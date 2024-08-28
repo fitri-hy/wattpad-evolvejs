@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('partials/head') %>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+	<style>
+		.truncate-text {
+			display: block;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 350px;
+		}
+	</style>
+</head>
+<body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
+	<%- include('components/sidebar') %>
+	<main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+		<%- include('components/header') %>
+		<div class="px-6 py-6 mx-auto">
+			<div class="bg-white shadow-soft-xl rounded-2xl bg-clip-border p-6">
+				<div class="flex items-center justify-between mb-6">
+					<h4>Daftar Komentar</h4>
+				</div>
+				<div class="overflow-x-auto">
+					<table id="example" class="display min-w-full py-2">
+						<thead>
+						<tr class="bg-pink-600 text-left text-white">
+							<th class="py-2 px-4 border-b">Pengguna</th>
+							<th class="py-2 px-4 border-b">Komentar</th>
+							<th class="py-2 px-4 border-b">Aksi</th>
+						</tr>
+						</thead>
+						<tbody>
+							
+							<% comment.forEach(commention => { %>
+							<tr>
+								<td class="py-2 px-4 border-b">
+									<span class="flex gap-2 items-center">
+										<%= commention.comment_name %>
+									</span>
+								</td>
+								<td class="py-2 px-4 border-b">
+									<span class="flex gap-2 items-center truncate-text">
+										<%= commention.comment_text %> afdada  dadad afa fahifhaiofhi ahfiahfio haifodada dadad ad ahaiofhi oahfioha oifhaihf ioa fafsafsd fdsfsdgsdg sdg 
+									</span>
+								</td>
+								<td class="py-2 px-4 border-b">
+									<div class="flex items-center justify-center">
+										<form action="/dashboard/comment/delete/<%= commention.comment_id %>" method="POST" class="bg-rose-500 rounded-md">
+											<input type="hidden" name="_method" value="DELETE">
+											<button type="submit" class="bg-rose-500 px-3 py-1 text-white rounded-md hover:bg-rose-600 hover:scale-105">
+											<i class="fa fa-trash"></i>
+											</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<% }) %>
+							
+						</tbody>
+					</table>
+				</div>
+				  
+			</div>
+		</div>
+	</main>
+	<div class="max-h-screen max-w-screen fixed left-[calc(50%-4rem)] bottom-10 -z-20 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+		<div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+		</div>
+	</div>
+	
+	<script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true
+      });
+    });
+  </script>
+</html>

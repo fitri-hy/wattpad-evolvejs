@@ -6,6 +6,7 @@ import RegisterController from '../controllers/RegisterController.js';
 import DashboardController from '../controllers/DashboardController.js';
 import DashboardStoryController from '../controllers/DashboardStoryController.js';
 import DashboardCategoryController from '../controllers/DashboardCategoryController.js';
+import DashboardCommentController from '../controllers/DashboardCommentController.js';
 
 const router = express.Router();
 
@@ -14,6 +15,8 @@ router.get('/', HomeController.index);
 router.get('/story-list', HomeController.storyList);
 router.get('/story/:slug', HomeController.storyDetail);
 router.get('/category/:slug', HomeController.categoryStory);
+
+router.post('/story/:slug/comment', HomeController.storyCommentAdd);
 
 router.get('/login', LoginController.index);
 router.get('/register', RegisterController.index);
@@ -33,5 +36,8 @@ router.post('/dashboard/category/create', DashboardCategoryController.createProc
 router.get('/dashboard/category/edit/:id', DashboardCategoryController.edit);
 router.post('/dashboard/category/edit/:id', DashboardCategoryController.updateProcess);
 router.post('/dashboard/category/delete/:id', DashboardCategoryController.deleteCategory);
+
+router.get('/dashboard/comment', DashboardCommentController.index);
+router.post('/dashboard/comment/delete/:id', DashboardCommentController.deleteComment);
 
 export default router;

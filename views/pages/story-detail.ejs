@@ -25,6 +25,55 @@
 					<%- story.content %>
 				</div>
 			</div>
+			<div class="px-4 lg:px-12 pb-6">
+				<div class="bg-gray-300 h-1 w-full mb-2"></div>
+				<h4>Komentar</h4>
+				<div class="bg-gray-300 h-[2px] w-full"></div>
+				
+				<% if (story.comments.length > 0) { %>
+				<% story.comments.forEach(comment => { %>
+				<div class="mt-6 flex flex-col gap-1 py-2">
+					<div class="flex gap-2 items-center">
+						<img class="h-8 w-8 rounded-full object-cover" src="/assets/img/avatar.png">
+						<span class="text-xl font-bold text-gray-600"><%= comment.comment_name %><span>
+					</div>
+					<div class="ml-10">
+						<p><%= comment.comment_text %></p>
+					</div>
+				</div>
+				<% }); %>
+				<% } else { %>
+					<p class="py-4">Belum ada komentar. Jadilah yang pertama berkomentar!</p>
+				<% } %>
+  
+				<div class="mt-12">
+					<form action="/story/<%= generateSlug(story.title) %>/comment" method="POST">
+						<div class="flex flex-col gap-4">
+							<h5>Tulis Komentar</h5>
+							<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+								<div class="flex flex-col gap-1">
+									<label>Nama Lengkap</label>
+									<input class="focus:outline-none w-full p-3 rounded-md border border-gray-300" name="comment_name" type="text" placeholder="Masukan Nama Anda..." required>
+								</div>
+								<div class="flex flex-col gap-1">
+									<label>Email</label>
+									<input class="focus:outline-none w-full p-3 rounded-md border border-gray-300" name="comment_email" type="email" placeholder="Masukan Email Anda..." required>
+								</div>
+							</div>
+							<div class="flex flex-col gap-1">
+								<label>Komentar</label>
+								<textarea class="focus:outline-none w-full p-3 rounded-md border border-gray-300" name="comment_text" type="text" placeholder="Tulisan Komentar Anda..." rows="3" required></textarea>
+							</div>
+							<div class="flex justify-end mb-4">
+								<button type="submit" class="px-4 py-2 gap-2 justify-center font-semibold flex items-center text-xs lg:text-xl bg-gradient-to-r rounded-md hover:bg-gradient-to-l hover:scale-105 hover:shadow from-indigo-400 to-cyan-400 text-white sm:w-auto">
+									Kirim
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="bg-gray-300 h-1 w-full"></div>
+			</div>
 		</section>
 		<section class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg lg:mb-0 p-4 lg:w-[30%] mt-9 lg:mt-0">
 			<div>
@@ -90,6 +139,5 @@
 		  style="clip-path:polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
 		</div>
 	</div>
-	<%- include('partials/script') %>
 </body>
 </html>
