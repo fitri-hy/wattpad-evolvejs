@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Agu 2024 pada 04.48
+-- Waktu pembuatan: 30 Agu 2024 pada 05.11
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.25
 
@@ -68,6 +68,30 @@ INSERT INTO `comment` (`comment_id`, `id_story`, `comment_name`, `comment_email`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `site_title` varchar(100) NOT NULL,
+  `site_tagline` varchar(150) NOT NULL,
+  `site_desc` text NOT NULL,
+  `site_keyword` text NOT NULL,
+  `site_logo` varchar(200) NOT NULL,
+  `site_favicon` varchar(200) NOT NULL,
+  `site_og` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `settings`
+--
+
+INSERT INTO `settings` (`id`, `site_title`, `site_tagline`, `site_desc`, `site_keyword`, `site_logo`, `site_favicon`, `site_og`) VALUES
+(1, 'R-Stories', 'Tempat Baca Cerita Original', 'Rumah bagi 97 juta orang yang menghabiskan lebih dari 26 miliar menit sebulan untuk terlibat dalam cerita orisinal, R-Stories telah mendemokratisasi cara bercerita untuk generasi baru penulis Gen Z yang beragam dan penggemarnya. ', 'stories, cerita, wattpad, dongeng, cerpen', '1724985171231.png', '1724985171235.png', '1724985171237.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `story`
 --
 
@@ -107,6 +131,12 @@ ALTER TABLE `comment`
   ADD PRIMARY KEY (`comment_id`);
 
 --
+-- Indeks untuk tabel `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `story`
 --
 ALTER TABLE `story`
@@ -127,6 +157,12 @@ ALTER TABLE `category`
 --
 ALTER TABLE `comment`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `story`

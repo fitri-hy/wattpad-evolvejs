@@ -2,3 +2,16 @@
 
 <img src="./public/ss1.png">
 <img src="./public/ss2.png">
+
+### Install
+
+- Import `database.sql` di phpMyAdmin.
+- Konfigurasi database `core/Database.js`
+```
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'demo'
+```
+- jalankan `npm run dev:tw` atau `npm start`
+- Dashboard admin: `http://localhosr:3000/dashboard`
