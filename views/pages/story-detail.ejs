@@ -75,59 +75,61 @@
 				<div class="bg-gray-300 h-1 w-full"></div>
 			</div>
 		</section>
-		<section class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg lg:mb-0 p-4 lg:w-[30%] mt-9 lg:mt-0">
-			<div>
-				<h4>Cerita Terbaru</h4>
-				<div class="mt-4">
-					<% 
-					  let sortedData = latestStories.sort((a, b) => b.id - a.id);
-					  let limitedData = sortedData.slice(0, 6);
-					%>
-					<% limitedData.forEach(story => { %>
-					<a href="/story/<%= story.slug %>">
-						<div class="w-full flex gap-3 mb-4">
-							<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
-							<div>
-								<span class="overflow-hidden line-clamp-1 font-bold">
-									<%= story.title %>
-								</span>
-								<div class="overflow-hidden line-clamp-2">
-									<%- story.content %>
+		<section class="lg:w-[30%] mt-9 lg:mb-0 lg:mt-0">
+			<div class="flex flex-col gap-6 bg-white shadow-soft-xl rounded-lg p-4">
+				<div>
+					<h4>Cerita Terbaru</h4>
+					<div class="mt-4">
+						<% 
+						  let sortedData = latestStories.sort((a, b) => b.id - a.id);
+						  let limitedData = sortedData.slice(0, 6);
+						%>
+						<% limitedData.forEach(story => { %>
+						<a href="/story/<%= story.slug %>">
+							<div class="w-full flex gap-3 mb-4">
+								<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
+								<div>
+									<span class="overflow-hidden line-clamp-1 font-bold">
+										<%= story.title %>
+									</span>
+									<div class="overflow-hidden line-clamp-2">
+										<%- story.content %>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
-					<% }) %>
+						</a>
+						<% }) %>
+					</div>
 				</div>
-			</div>
-			<div>
-				<h4>Cerita Populer</h4>
-				<div class="mt-4">
-					<% 
-					  function shuffleArray(array) {
-						for (let i = array.length - 1; i > 0; i--) {
-						  const j = Math.floor(Math.random() * (i + 1));
-						  [array[i], array[j]] = [array[j], array[i]];
-						}
-						return array;
-					  }
-					  let shuffledData = shuffleArray([...latestStories]).slice(0, 8);
-					%>
-					<% shuffledData.forEach(story => { %>
-					<a href="/story/<%= story.slug %>">
-						<div class="w-full flex gap-3 mb-4">
-							<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
-							<div class="">
-								<span class="overflow-hidden line-clamp-1 font-bold">
-									<%= story.title %>
-								</span>
-								<div class="overflow-hidden line-clamp-2">
-									<%- story.content %>
+				<div>
+					<h4>Cerita Populer</h4>
+					<div class="mt-4">
+						<% 
+						  function shuffleArray(array) {
+							for (let i = array.length - 1; i > 0; i--) {
+							  const j = Math.floor(Math.random() * (i + 1));
+							  [array[i], array[j]] = [array[j], array[i]];
+							}
+							return array;
+						  }
+						  let shuffledData = shuffleArray([...latestStories]).slice(0, 8);
+						%>
+						<% shuffledData.forEach(story => { %>
+						<a href="/story/<%= story.slug %>">
+							<div class="w-full flex gap-3 mb-4">
+								<img class="w-20 h-20 object-cover rounded-lg" src="/assets/img/story/<%= story.img %>" alt="<%= story.title %>">
+								<div class="">
+									<span class="overflow-hidden line-clamp-1 font-bold">
+										<%= story.title %>
+									</span>
+									<div class="overflow-hidden line-clamp-2">
+										<%- story.content %>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
-					<% }) %>
+						</a>
+						<% }) %>
+					</div>
 				</div>
 			</div>
 		</section>
