@@ -13,5 +13,6 @@
   password: '',
   database: 'demo'
 ```
-- jalankan `npm run dev:tw` atau `npm start`
+- Install dependencies `npm install`
+- Jalankan `npm run dev:tw` atau `npm start`
 - Dashboard admin: `http://localhost:3000/dashboard`
