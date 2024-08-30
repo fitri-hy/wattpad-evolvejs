@@ -14,4 +14,4 @@
   database: 'demo'
 ```
 - jalankan `npm run dev:tw` atau `npm start`
-- Dashboard admin: `http://localhosr:3000/dashboard`
+- Dashboard admin: `http://localhost:3000/dashboard`
