@@ -18,13 +18,17 @@ class DashboardStoryController {
 			ON story.id_category = category.id
 	  `);
 
-    const stories = rows.map(story => ({
-      ...story,
-      slug: DashboardStoryController.generateSlug(story.title)
-    }));
+      const stories = rows.map(story => ({
+		...story,
+		slug: DashboardStoryController.generateSlug(story.title)
+      }));
+	
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Cerita | ${settingsRows[0].site_title}`;
 
       res.render('dashboard/story', { 
-		    data: stories
+		    data: stories,
+			title: siteTitle, settings: settingsRows[0]
 	    });
 
     } catch (error) {
@@ -37,9 +41,14 @@ class DashboardStoryController {
     try {
       const [rows] = await db.query('SELECT * FROM category');
 
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Tambah Cerita | ${settingsRows[0].site_title}`;
+	  
       res.render('dashboard/story-create', { 
-		data: rows
+		data: rows,
+		title: siteTitle, settings: settingsRows[0]
 	  });
+	  
     } catch (error) {
       console.error(error);
       res.status(500).send('Terjadi kesalahan saat mengambil data.');
@@ -72,10 +81,14 @@ class DashboardStoryController {
       if (storyRows.length === 0) {
         return res.status(404).send('Story tidak ditemukan.');
       }
+	  
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Ubah Cerita | ${settingsRows[0].site_title}`;
 
       res.render('dashboard/story-edit', {
         story: storyRows[0],
-        categories: categoryRows
+        categories: categoryRows,
+		title: siteTitle, settings: settingsRows[0]
       });
     } catch (error) {
       console.error(error);

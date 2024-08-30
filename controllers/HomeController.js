@@ -30,10 +30,14 @@ class HomeController {
             ...category,
             slug: HomeController.generateSlug(category.category)
         }));
-
+		
+		const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+		const siteTitle = `${settingsRows[0].site_title} | ${settingsRows[0].site_tagline}`;
+		
       res.render('pages/index', { 
         data: stories,
-		headerCategories: categoriesWithSlug
+		headerCategories: categoriesWithSlug,
+		title: siteTitle, settings: settingsRows[0], settings: settingsRows[0]
       });
     } catch (error) {
       console.error(error);
@@ -114,12 +118,17 @@ class HomeController {
         ...category,
         slug: HomeController.generateSlug(category.category)
       }));
+	  
+	  
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `${storyRows[0].title} | ${settingsRows[0].site_title}`;
 
       res.render('pages/story-detail', { 
         story: storyData,
         latestStories: storiesWithSlug,
         headerCategories: categoriesWithSlug,
-		generateSlug: HomeController.generateSlug
+		generateSlug: HomeController.generateSlug,
+		title: siteTitle, settings: settingsRows[0]
       });
     } catch (error) {
       console.error(error);
@@ -165,12 +174,17 @@ class HomeController {
             ...category,
             slug: HomeController.generateSlug(category.category)
         }));
+		
+		const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+		const siteTitle = `Daftar Cerita | ${settingsRows[0].site_title}`;
+	  
         res.render('pages/story-list', { 
             data: stories,
             headerCategories: categoriesWithSlug,
             currentPage,
             totalPages,
-            searchQuery
+            searchQuery,
+			title: siteTitle, settings: settingsRows[0]
         });
     } catch (error) {
         console.error(error);
@@ -259,6 +273,10 @@ class HomeController {
             ...category,
             slug: HomeController.generateSlug(category.category)
         }));
+		
+		
+		const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+		const siteTitle = `${categoryRows[0].category} | ${settingsRows[0].site_title}`;
 
         res.render('pages/category-list', {
             stories: storiesWithSlug,
@@ -267,7 +285,8 @@ class HomeController {
             categoryName: categoryRows[0].category,
             currentPage: parseInt(page),
             totalPages,
-            searchQuery: search
+            searchQuery: search,
+			title: siteTitle, settings: settingsRows[0]
         });
 
     } catch (error) {

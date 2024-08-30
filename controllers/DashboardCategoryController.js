@@ -4,11 +4,14 @@ class DashboardCategoryController {
 
   static async index(req, res) {
     try {
-      const [rows] = await db.query(`
-		  SELECT * FROM category`);
+      const [rows] = await db.query(`SELECT * FROM category`);
+	  
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Kategori | ${settingsRows[0].site_title}`;
 
       res.render('dashboard/category', { 
-		    category: rows
+		    category: rows,
+			title: siteTitle, settings: settingsRows[0]
 	    });
     } catch (error) {
       console.error(error);
@@ -17,9 +20,16 @@ class DashboardCategoryController {
   }
 
   static async create(req, res) {
-      res.render('dashboard/category-create', { 
-        message: 'Hello from DashboardController!' 
+	try {
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Tambah Kategori | ${settingsRows[0].site_title}`;
+      res.render('dashboard/category-create', {
+		title: siteTitle, settings: settingsRows[0]
       });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Terjadi kesalahan saat mengambil data.');
+    }
   }
 
   static async createProccess(req, res) {
@@ -46,8 +56,11 @@ class DashboardCategoryController {
         return res.status(404).send('Category tidak ditemukan.');
       }
 
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Ubah Kategori | ${settingsRows[0].site_title}`;
       res.render('dashboard/category-edit', {
         category: categoryRows[0],
+		title: siteTitle, settings: settingsRows[0]
       });
     } catch (error) {
       console.error(error);

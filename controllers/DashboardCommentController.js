@@ -7,9 +7,13 @@ class DashboardCommentController {
       const [rows] = await db.query(`
 		  SELECT * FROM comment`);
 
+	  const [settingsRows] = await db.query('SELECT * FROM settings WHERE id = 1');
+	  const siteTitle = `Komentar | ${settingsRows[0].site_title}`;
+	  
       res.render('dashboard/comment', { 
-		    comment: rows
-	    });
+		comment: rows,
+		title: siteTitle, settings: settingsRows[0]
+	  });
     } catch (error) {
       console.error(error);
       res.status(500).send('Terjadi kesalahan saat mengambil data.');

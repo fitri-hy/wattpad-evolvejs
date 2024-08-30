@@ -1,7 +1,8 @@
+// multer.js
 import multer from 'multer';
 import path from 'path';
 
-const storage = multer.diskStorage({
+const storyStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/assets/img/story/');
   },
@@ -11,6 +12,17 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+const settingsStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/assets/img/');
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}${ext}`);
+  }
+});
 
-export default upload;
+const upload = multer({ storage: storyStorage });
+const uploadSettings = multer({ storage: settingsStorage });
+
+export { upload, uploadSettings };
